@@ -14,7 +14,7 @@ import Foundation
 //Any left would be the unknown symbols
 
 public class Subsitution: Cipher {
-    internal var _caseSensitive = false
+    internal var _caseSensitive: Bool = false
     internal var _memorizeCase: Bool = false
     internal var _unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore
     internal var _createNGroups: Int? = nil
@@ -85,7 +85,7 @@ public class Subsitution: Cipher {
         }
     }
     
-    public init(key: [String : String], caseSensitive: Bool, memorizeCase: Bool, unknownSymbolHandling: UnknownSymbolHandlingMode, createNGroups: Int?) {
+    public init?(key: [String : String], caseSensitive: Bool, memorizeCase: Bool, unknownSymbolHandling: UnknownSymbolHandlingMode, createNGroups: Int?) {
         self.key = key
         self.inverseKey = [:]
         self.createInverseKey()
@@ -94,15 +94,39 @@ public class Subsitution: Cipher {
         self.memorizeCase = memorizeCase
         self.unknownSymbolHandling = unknownSymbolHandling
         self.createNGroups = createNGroups
+        
+        if(!isValidKey()) {
+            return nil
+        }
     }
     
-    public convenience init(key: [String : String]) {
+    public convenience init?(key: [String : String]) {
         self.init(key: key, caseSensitive: false, memorizeCase: false, unknownSymbolHandling: .Ignore, createNGroups: nil)
     }
     
-    public func encrypt(_ plaintext: String) throws -> String {
-        try validateKey()
+    //MARK: - Key
+    private func crackKey(from cipherText: String) -> [String : String]? {
+        return nil
+    }
+    
+    private func createInverseKey() {
+        self.inverseKey = [:]
         
+        for key in self.key {
+            self.inverseKey[key.value] = key.key
+        }
+    }
+    
+    private func isValidKey() -> Bool {
+        //This means that the inverseKey had multiple values set to the same thing.
+        if(key.count != inverseKey.count) {
+            return false
+        }
+        return true
+    }
+    
+    //MARK: - Encrypt / Decrypt
+    public func encrypt(_ plaintext: String) -> String {
         var encryptedMessage: String = ""
         var arrPlaintext: [Character] = Array(plaintext)
         
@@ -161,9 +185,7 @@ public class Subsitution: Cipher {
         }
     }
     
-    public func decrypt(_ ciphertext: String) throws -> String {
-        try validateKey()
-        
+    public func decrypt(_ ciphertext: String) -> String {
         var decryptedMessage: String = ""
         var arrCiphertext: [Character] = Array(ciphertext)
         
@@ -198,24 +220,5 @@ public class Subsitution: Cipher {
         }
         
         return reformat(decryptedMessage)
-    }
-    
-    public func crackKey(from cipherText: String) throws {
-        throw CipherError.UnknownError
-    }
-    
-    public func validateKey() throws {
-        //This means that the inverseKey had multiple values set to the same thing.
-        if(key.count != inverseKey.count) {
-            throw CipherError.InvalidKey
-        }
-    }
-    
-    private func createInverseKey() {
-        self.inverseKey = [:]
-        
-        for key in self.key {
-            self.inverseKey[key.value] = key.key
-        }
     }
 }

@@ -2,53 +2,82 @@ import XCTest
 @testable import Cryptography
 
 final class SubsitutionTests: XCTestCase {
-    func testValidateKey() {
-        var cipher = Subsitution(key: ["A" : "B", "C" : "B", "D" : "C"])
-        
-        XCTAssertThrowsError(try cipher.validateKey())
-        XCTAssertThrowsError(try cipher.encrypt("AABBCC"))
-        XCTAssertThrowsError(try cipher.decrypt("BBCCDD"))
-        
-        cipher = Subsitution(key: ["A" : "B", "B" : "C", "C" : "D"])
-        XCTAssertNoThrow(try cipher.validateKey())
-        XCTAssertNoThrow(try cipher.encrypt("AABBCC"))
+    //MARK: - Empty Key
+    /// If there is a empty key, the init should not return nil
+    func testInitWithEmptyKey() {
+        XCTAssertNotNil(Subsitution(key: [:]))
     }
     
-    func testEncryptPlaintext() {
-        var cipher = Subsitution(key: ["A" : "B", "B" : "C", "C" : "D"])
-        
-        XCTAssertNoThrow(try cipher.encrypt("AABBCC"))
-        XCTAssertEqual(try cipher.encrypt("AABBCC"), "BBCCDD")
-        
-        cipher = Subsitution(key: ["A" : "B", "B" : "C", "C" : "D", "BB" : "Q"])
-        
-        XCTAssertNoThrow(try cipher.encrypt("AABBCC"))
-        XCTAssertEqual(try cipher.encrypt("AABBCC"), "BBQDD")
-        
-        cipher = Subsitution(key: ["A" : "B", "B" : "C", "C" : "D", "BB" : "QQ"])
-        
-        XCTAssertNoThrow(try cipher.encrypt("AABBCC"))
-        XCTAssertEqual(try cipher.encrypt("AABBCC"), "BBQQDD")
+    func testInitPerformanceInitWithEmptyKey() {
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = Subsitution(key: [:])
+        }
     }
     
-    func testDecryptPlaintext() {
-        var cipher = Subsitution(key: ["A" : "B", "B" : "C", "C" : "D"])
-        
-        XCTAssertNoThrow(try cipher.decrypt("BBCCDD"))
-        XCTAssertEqual(try cipher.decrypt("BBCCDD"), "AABBCC")
-        
-        cipher = Subsitution(key: ["A" : "B", "B" : "C", "C" : "D", "BB" : "Q"])
-        
-        XCTAssertNoThrow(try cipher.decrypt("BBQDD"))
-        XCTAssertEqual(try cipher.decrypt("BBQDD"), "AABBCC")
-        
-        cipher = Subsitution(key: ["A" : "B", "B" : "C", "C" : "D", "BB" : "QQ"])
-        
-        XCTAssertNoThrow(try cipher.decrypt("BBQQDD"))
-        XCTAssertEqual(try cipher.decrypt("BBQQDD"), "AABBCC")
+    /// If there is a empty key, the cipher text should be the same as the plain text.
+    func testEncryptWithEmptyKey() {
+        if let cipher = Subsitution(key: [:]) {
+            XCTAssertEqual(cipher.encrypt("AABBCC"), "AABBCC")
+        }
     }
     
-    func testCrackKey() {
+    func testEncryptPerformanceInitWithEmptyKey() {
+        let cipher = Subsitution(key: [:])!
         
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = cipher.encrypt("Hello, World")
+        }
+    }
+    
+    /// If there is a empty key, the plain texy should be the same as the cipher text.
+    func testDecryptWithEmptyKey() {
+        if let cipher = Subsitution(key: [:]) {
+            XCTAssertEqual(cipher.decrypt("AABBCC"), "AABBCC")
+        }
+    }
+    
+    func testDecryptPerformanceInitWithEmptyKey() {
+        let cipher = Subsitution(key: [:])!
+        
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = cipher.decrypt("Hello, World")
+        }
+    }
+    
+    //MARK: - One Value In Key
+    func testInitWithOneValueInKey() {
+        XCTAssertNotNil(Subsitution(key: ["A" : "B"]))
+    }
+    
+    //MARK: - Two Values in Key
+    func testInitWithTwoValuesInKey() {
+        XCTAssertNotNil(Subsitution(key: ["A" : "B", "B" : "C"]))
+    }
+    
+    //MARK: - Two Same Values in Key
+    func testInitWithTwoSameValueInKey() {
+        //XCTAssertNotNil(Subsitution(key: ["A" : "B", "A" : "C"])) -> Fatel Error
+        XCTAssertNil(Subsitution(key: ["A" : "B", "C" : "B"]))
     }
 }

@@ -38,19 +38,13 @@ public protocol Cipher {
     /// - Parameter plaintext: The message to be encryted
     /// - Returns `ciphertext`
     /// - Throws: ``CipherError``
-    func encrypt(_ plaintext: String) throws -> String
+    func encrypt(_ plaintext: String) -> String
     
     /// Decrypts `ciphertext`
     /// - Parameter ciphertext: The message to be encryted
     /// - Returns `plaintext`
     /// - Throws: ``CipherError``
-    func decrypt(_ ciphertext: String) throws -> String
-    
-    /// Cracks the key
-    /// - Throws: ``CipherError``
-    func crackKey(from ciphertext: String) throws
-    
-    func validateKey() throws
+    func decrypt(_ ciphertext: String) -> String
     
     func reformat(_ message: String) -> String
 }
