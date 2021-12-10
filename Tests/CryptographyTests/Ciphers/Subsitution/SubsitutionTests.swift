@@ -43,7 +43,7 @@ final class SubsitutionTests: XCTestCase {
         }
     }
     
-    /// If there is a empty key, the plain texy should be the same as the cipher text.
+    /// If there is a empty key, the plain text should be the same as the cipher text.
     func testDecryptWithEmptyKey() {
         if let cipher = Subsitution(key: [:]) {
             XCTAssertEqual(cipher.decrypt("AABBCC"), "AABBCC")
@@ -66,8 +66,67 @@ final class SubsitutionTests: XCTestCase {
     }
     
     //MARK: - One Value In Key
+    /// If there is one value in the key, the init should not return nil
     func testInitWithOneValueInKey() {
+        XCTAssertNotNil(Subsitution(key: ["A" : "A"]))
         XCTAssertNotNil(Subsitution(key: ["A" : "B"]))
+    }
+    
+    func testInitPerformanceInitWithOneValueInKey() {
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = Subsitution(key: ["A" : "B"])
+        }
+    }
+    
+    /// If there is a one value in the key, the cipher text should only have that one value changed.
+    func testEncryptWithOneValueInKey() {
+        if let cipher = Subsitution(key: ["A" : "B"]) {
+            XCTAssertEqual(cipher.encrypt("AABBCC"), "BBBBCC")
+        }
+    }
+    
+    func testEncryptPerformanceInitWithOneValueInKey() {
+        let cipher = Subsitution(key: ["A" : "B"])!
+        
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = cipher.encrypt("Hello, World")
+        }
+    }
+    
+    /// If there is a one value in the key, the plain text should only have that one value changed.
+    func testDecryptWithOneValueInKey() {
+        if let cipher = Subsitution(key: ["A" : "B"]) {
+            XCTAssertEqual(cipher.decrypt("AABBCC"), "AAAACC")
+        }
+    }
+    
+    func testDecryptPerformanceInitWithOneValueInKey() {
+        let cipher = Subsitution(key: ["A" : "B"])!
+        
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = cipher.decrypt("Hello, World")
+        }
     }
     
     //MARK: - Two Values in Key
