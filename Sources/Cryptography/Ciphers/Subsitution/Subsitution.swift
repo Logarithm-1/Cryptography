@@ -85,7 +85,7 @@ public class Subsitution: Cipher {
         }
     }
     
-    public init?(key: [String : String], caseSensitive: Bool, memorizeCase: Bool, unknownSymbolHandling: UnknownSymbolHandlingMode, createNGroups: Int?) {
+    public init?(key: [String : String], caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil) {
         self.key = key
         self.inverseKey = [:]
         self.createInverseKey()
@@ -98,10 +98,6 @@ public class Subsitution: Cipher {
         if(!isValidKey()) {
             return nil
         }
-    }
-    
-    public convenience init?(key: [String : String]) {
-        self.init(key: key, caseSensitive: false, memorizeCase: false, unknownSymbolHandling: .Ignore, createNGroups: nil)
     }
     
     //MARK: - Key

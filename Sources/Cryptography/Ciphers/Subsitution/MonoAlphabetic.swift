@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MonoAlphabetic.swift
 //  
 //
 //  Created by Logan Richards on 12/10/21.
@@ -9,7 +9,7 @@ import Foundation
 
 public class MonoAlphabetic : Subsitution {
     
-    public init?(key: [String], caseSensitive: Bool, memorizeCase: Bool, unknownSymbolHandling: UnknownSymbolHandlingMode, createNGroups: Int?) {
+    public init?(key: [String], caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil) {
         let alphabet: [String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         var dictionaryKey: [String : String] = [:]
         
@@ -25,7 +25,7 @@ public class MonoAlphabetic : Subsitution {
         super.init(key: dictionaryKey, caseSensitive: caseSensitive, memorizeCase: memorizeCase, unknownSymbolHandling: unknownSymbolHandling, createNGroups: createNGroups)
     }
     
-    public convenience init?(key: String, caseSensitive: Bool, memorizeCase: Bool, unknownSymbolHandling: UnknownSymbolHandlingMode, createNGroups: Int?) {
+    public convenience init?(key: String, caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil) {
         var arrayKey: [String] = [String]()
         
         for char in key {
@@ -33,20 +33,6 @@ public class MonoAlphabetic : Subsitution {
         }
         
         self.init(key: arrayKey, caseSensitive: caseSensitive, memorizeCase: memorizeCase, unknownSymbolHandling: unknownSymbolHandling, createNGroups: createNGroups)
-    }
-    
-    public convenience init?(key: [String]) {
-        self.init(key: key, caseSensitive: false, memorizeCase: false, unknownSymbolHandling: .Ignore, createNGroups: nil)
-    }
-    
-    public convenience init?(key: String) {
-        var arrayKey: [String] = [String]()
-        
-        for char in key {
-            arrayKey.append(String(char))
-        }
-        
-        self.init(key: arrayKey)
     }
     
     //TODO: Get / Set Key
