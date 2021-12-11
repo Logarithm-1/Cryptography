@@ -160,7 +160,8 @@ public final class Ceasar : CaesarShift {
 }
 
 //TODO: CEASAR (with a wrong spelling) where E=A or A=E, the shift is either +4 or -4 (=22)
-Any 2-letter code that can give an association between a crypted char and the plain one (see gramograms)
-ROT13 code, the shift is 13 and reversible
-ROT5 code for digits, the shift is 5 and reversible
-ROT47 code for ASCII printable characters, the shift is 47 and reversible
+//Any 2-letter code that can give an association between a crypted char and the plain one (see gramograms)
+//ROT13 code, the shift is 13 and reversible
+//ROT5 code for digits, the shift is 5 and reversible
+//ROT47 code for ASCII printable characters, the shift is 47 and reversible
+//
