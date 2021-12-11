@@ -48,4 +48,40 @@ public class MonoAlphabetic : Subsitution {
         
         self.init(key: arrayKey)
     }
+    
+    //TODO: Get / Set Key
+    public func getKey() -> [String] {
+        return [String]()
+    }
+    
+    public func set(key: [String]) throws {
+        let alphabet: [String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        var dictionaryKey: [String : String] = [:]
+        
+        //Is Valid Key
+        if(alphabet.count != key.count) {
+            throw CipherError.invalidKey
+        }
+        
+        for i in 0..<key.count {
+            dictionaryKey[alphabet[i]] = key[i]
+        }
+        
+        try super.set(key: dictionaryKey)
+    }
+    
+    public func set(key: String) throws {
+        var arrayKey: [String] = [String]()
+        
+        for char in key {
+            arrayKey.append(String(char))
+        }
+        
+        try self.set(key: arrayKey)
+    }
+}
+
+
+enum CipherError : Error {
+    case invalidKey
 }

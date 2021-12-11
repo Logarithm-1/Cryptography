@@ -54,8 +54,8 @@ public class Subsitution: Cipher {
 
     public let replaceUnknownSymbolWith: String = "⍰"
     
-    public var key: [String : String]
-    internal var inverseKey: [String : String]
+    private var key: [String : String]
+    private var inverseKey: [String : String]
     
     private var maxKeyValue: Int {
         get {
@@ -123,6 +123,20 @@ public class Subsitution: Cipher {
             return false
         }
         return true
+    }
+    
+    public func set(key: [String : String]) throws {
+        let oldKey = self.key
+        
+        self.key = key
+        createInverseKey()
+        
+        if(!isValidKey()) {
+            self.key = oldKey
+            createInverseKey()
+            
+            throw CipherError.invalidKey
+        }
     }
     
     //MARK: - Encrypt / Decrypt
