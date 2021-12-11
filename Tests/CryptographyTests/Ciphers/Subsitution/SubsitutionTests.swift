@@ -130,8 +130,66 @@ final class SubsitutionTests: XCTestCase {
     }
     
     //MARK: - Two Values in Key
+    /// If there is two different value's in the key, the init should not return nil
     func testInitWithTwoValuesInKey() {
         XCTAssertNotNil(Subsitution(key: ["A" : "B", "B" : "C"]))
+    }
+    
+    func testInitPerformanceInitWithTwoValuesInKey() {
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = Subsitution(key: ["A" : "B"])
+        }
+    }
+    
+    /// If there is two different value's in the key, the cipher text should only have those two values changed.
+    func testEncryptWithTwoValuesInKey() {
+        if let cipher = Subsitution(key: ["A" : "B", "B" : "C"]) {
+            XCTAssertEqual(cipher.encrypt("AABBCC"), "BBCCCC")
+        }
+    }
+    
+    func testEncryptPerformanceInitWithTwoValuesInKey() {
+        let cipher = Subsitution(key: ["A" : "B", "B" : "C"])!
+        
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = cipher.encrypt("Hello, World")
+        }
+    }
+    
+    /// If there is a one value in the key, the plain text should only have that one value changed.
+    func testDecryptWithTwoValuesInKey() {
+        if let cipher = Subsitution(key: ["A" : "B", "B" : "C"]) {
+            XCTAssertEqual(cipher.decrypt("AABBCC"), "AAAABB")
+        }
+    }
+    
+    func testDecryptPerformanceInitWithTwoValuesInKey() {
+        let cipher = Subsitution(key: ["A" : "B", "B" : "C"])!
+        
+        measure(
+            metrics: [
+              XCTClockMetric(),
+              XCTCPUMetric(),
+              XCTStorageMetric(),
+              XCTMemoryMetric()
+            ]
+        ) {
+            let _ = cipher.decrypt("Hello, World")
+        }
     }
     
     //MARK: - Two Same Values in Key

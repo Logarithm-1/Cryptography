@@ -128,7 +128,7 @@ public class Subsitution: Cipher {
     //MARK: - Encrypt / Decrypt
     public func encrypt(_ plaintext: String) -> String {
         var encryptedMessage: String = ""
-        var arrPlaintext: [Character] = Array(plaintext)
+        var arrPlaintext: [Character] = Array(caseSensitive ? plaintext : plaintext.uppercased())
         
         var grouping = maxKeyValue
         
@@ -187,7 +187,7 @@ public class Subsitution: Cipher {
     
     public func decrypt(_ ciphertext: String) -> String {
         var decryptedMessage: String = ""
-        var arrCiphertext: [Character] = Array(ciphertext)
+        var arrCiphertext: [Character] = Array(caseSensitive ? ciphertext : ciphertext.uppercased())
         
         var grouping = maxInverseKeyValue
         
