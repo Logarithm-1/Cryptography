@@ -9,13 +9,13 @@ final class ASCIITests: XCTestCase {
     
     func testEncrypt() {
         if let cipher = ASCII() {
-            XCTAssertEqual(cipher.encrypt("Hello World"), "SVOOL DLIOW")
+            XCTAssertEqual(cipher.encrypt("Hello World"), "72 101 108 108 111 32 87 111 114 108 100 ")
         }
     }
     
     func testDecrypt() {
         if let cipher = ASCII() {
-            XCTAssertEqual(cipher.decrypt("SVOOL DLIOW"), "HELLO WORLD")
+            XCTAssertEqual(cipher.decrypt("72 101 108 108 111 32 87 111 114 108 100"), "H e l l o   W o r l d ")
         }
     }
 }
