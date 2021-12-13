@@ -170,7 +170,7 @@ public class Subsitution: Cipher {
             
             if(grouping > 0) {
                 grouping -= 1
-            } else if(unknownSymbolHandling == .Ignore) {
+            } else if(unknownSymbolHandling == .Ignore && String(arrPlaintext[0]) != seperator) {
                 encryptedMessage += String(arrPlaintext[0])
                 removeFirst(arr: &arrPlaintext, by: 1)
                 grouping = 2
@@ -230,7 +230,7 @@ public class Subsitution: Cipher {
             
             if(grouping > 0) {
                 grouping -= 1
-            } else if(unknownSymbolHandling == .Ignore) {
+            } else if(unknownSymbolHandling == .Ignore && String(arrCiphertext[0]) != seperator) {
                 decryptedMessage += String(arrCiphertext[0])
                 removeFirst(arr: &arrCiphertext, by: 1)
                 grouping = 2

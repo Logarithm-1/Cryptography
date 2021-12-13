@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class ASCII : Subsitution {
+public final class ASCII : Subsitution {
     public init?(unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, seperator: String = " ") {
         super.init(key: [:], caseSensitive: true, memorizeCase: false, unknownSymbolHandling: unknownSymbolHandling, createNGroups: nil, seperator: seperator)
     }
@@ -48,6 +48,6 @@ public class ASCII : Subsitution {
             }
         }
         
-        return decryptedMessage
+        return reformat(decryptedMessage)
     }
 }
