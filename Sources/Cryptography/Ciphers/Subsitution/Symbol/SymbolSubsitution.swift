@@ -11,15 +11,21 @@ import Foundation
 public class SymbolSubsitution : Subsitution {
     let imagePostName: String
     
-    public init?(imagePostName: String, alphabet: [String], caseSensitive: Bool = false, memorizeCase: Bool = false) {
+    public init?(imagePostName: String, alphabet: [String], caseSensitive: Bool = false, memorizeCase: Bool = false, addSpace: Bool = true) {
         self.imagePostName = imagePostName
         var key: [String : String] = [:]
         
         for a in alphabet {
-            key[a] = imagePostName + "." + a
+            if(a != " ") {
+                key[a] = imagePostName + "." + a
+            } else {
+                key[a] = imagePostName + ".space"
+            }
         }
         
-        key[" "] = "space"
+        if(addSpace) {
+            key[" "] = "space"
+        }
         
         super.init(key: key, caseSensitive: caseSensitive, memorizeCase: memorizeCase, unknownSymbolHandling: .Remove, createNGroups: nil, seperator: " ")
     }
