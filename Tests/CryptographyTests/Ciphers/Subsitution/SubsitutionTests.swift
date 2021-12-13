@@ -197,4 +197,11 @@ final class SubsitutionTests: XCTestCase {
         //XCTAssertNotNil(Subsitution(key: ["A" : "B", "A" : "C"])) -> Fatel Error
         XCTAssertNil(Subsitution(key: ["A" : "B", "C" : "B"]))
     }
+    
+    
+    func testEncryptWithDifferentSizeKeys() {
+        if let cipher = Subsitution(key: ["A" : "B", "BB" : "C", "C" : "D"]) {
+            XCTAssertEqual(cipher.encrypt("AABBCC"), "BBCDD")
+        }
+    }
 }

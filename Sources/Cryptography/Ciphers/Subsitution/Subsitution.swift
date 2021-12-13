@@ -18,6 +18,7 @@ public class Subsitution: Cipher {
     internal var _memorizeCase: Bool = false
     internal var _unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore
     internal var _createNGroups: Int? = nil
+    internal var _seperator: String = ""
         
     public var caseSensitive: Bool {
         get {
@@ -51,7 +52,16 @@ public class Subsitution: Cipher {
             _createNGroups = newValue
         }
     }
-
+    
+    public var seperator: String {
+        get {
+            return _seperator
+        }
+        set(newValue) {
+            _seperator = newValue
+        }
+    }
+    
     public let replaceUnknownSymbolWith: String = "⍰"
     
     private var key: [String : String]
@@ -85,7 +95,7 @@ public class Subsitution: Cipher {
         }
     }
     
-    public init?(key: [String : String], caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil) {
+    public init?(key: [String : String], caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil, seperator: String = "") {
         self.key = key
         self.inverseKey = [:]
         self.createInverseKey()
@@ -94,6 +104,7 @@ public class Subsitution: Cipher {
         self.memorizeCase = memorizeCase
         self.unknownSymbolHandling = unknownSymbolHandling
         self.createNGroups = createNGroups
+        self.seperator = seperator
         
         if(!isValidKey()) {
             return nil
@@ -135,6 +146,10 @@ public class Subsitution: Cipher {
         }
     }
     
+    public func getKey() -> [String : String] {
+        return key
+    }
+    
     //MARK: - Encrypt / Decrypt
     public func encrypt(_ plaintext: String) -> String {
         var encryptedMessage: String = ""
@@ -145,7 +160,7 @@ public class Subsitution: Cipher {
         while(0 < arrPlaintext.count) {
             if let str = group(string: arrPlaintext, by: grouping) {
                 if let encryptedStr = key[str] {
-                    encryptedMessage += encryptedStr
+                    encryptedMessage += encryptedStr + seperator
                     removeFirst(arr: &arrPlaintext, by: grouping)
                     
                     grouping = maxKeyValue
@@ -204,7 +219,8 @@ public class Subsitution: Cipher {
         while(0 < arrCiphertext.count) {
             if let str = group(string: arrCiphertext, by: grouping) {
                 if let decryptedStr = inverseKey[str] {
-                    decryptedMessage += decryptedStr
+                    decryptedMessage += decryptedStr + seperator
+                    
                     removeFirst(arr: &arrCiphertext, by: grouping)
                     
                     grouping = maxInverseKeyValue

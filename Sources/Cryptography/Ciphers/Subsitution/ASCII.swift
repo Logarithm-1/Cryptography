@@ -1,17 +1,27 @@
 //
-//  Bacon.swift
+//  File.swift
 //  
 //
-//  Created by Logan Richards on 12/11/21.
+//  Created by Logan Richards on 12/12/21.
 //
 
 import Foundation
 
-public final class Bacon : MonoAlphabetic {
+public class ASCII : Subsitution {
+    
     public init?(caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil, seperator: String = "") {
-        let key: [String] = ["AAAAA", "AAAAB", "AAABA", "AAABB", "AABAA", "AABAB", "AABBA", "AABBB", "ABAAA", "ABAAB", "ABABA", "ABABB", "ABBAA", "ABBAB", "ABBBA", "ABBBB", "BAAAA", "BAAAB", "BAABA", "BAABB", "BABAA", "BABAB", "BABBA", "BABBB", "BBAAA", "BBAAB"]
+        var key: [String : String] = [:]
+        
+        for i in 32..<100000 {
+            if let uni = UnicodeScalar(i) {
+                let str: String = String(Character(uni))
+                if(str != "") {
+                    key[str] = String(i)
+                }
+            }
+        }
         
         super.init(key: key, caseSensitive: caseSensitive, memorizeCase: memorizeCase, unknownSymbolHandling: unknownSymbolHandling, createNGroups: createNGroups, seperator: seperator)
     }
+    
 }
-

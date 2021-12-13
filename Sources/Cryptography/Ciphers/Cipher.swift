@@ -34,6 +34,11 @@ public protocol Cipher {
     ///     - If `4` then seperate by groups of 4, for example "JGEE OXOB EA"
     var createNGroups: Int? { get set }
     
+    /// Format the encrypted/decrypted plaintext/ciphertext into groups of n.
+    ///     - If `""` then don't seperate the values  of the plaintext/ciphertext
+    ///     - If `*` then seperate by "\*" for example "A\*B\*C\*D"
+    var seperator: String { get set }
+    
     /// Encrypts `plaintext`
     /// - Parameter plaintext: The message to be encryted
     /// - Returns `ciphertext`
