@@ -13,6 +13,7 @@ import Foundation
 //Then decrease (2 to 1)
 //Any left would be the unknown symbols
 
+/// The **elements** of the the plaintext retain their original relative positions but are replaced by other elements with different values or meanings, with the result that the original text becomes unintelligible.
 public class Subsitution: Cipher {
     internal var _caseSensitive: Bool = false
     internal var _memorizeCase: Bool = false
@@ -173,15 +174,15 @@ public class Subsitution: Cipher {
             } else if(unknownSymbolHandling == .Ignore && String(arrPlaintext[0]) != seperator) {
                 encryptedMessage += String(arrPlaintext[0])
                 removeFirst(arr: &arrPlaintext, by: 1)
-                grouping = 2
+                grouping = maxKeyValue
             } else if(unknownSymbolHandling == .Replace) {
                 encryptedMessage += replaceUnknownSymbolWith
                 removeFirst(arr: &arrPlaintext, by: 1)
-                grouping = 2
+                grouping = maxKeyValue
             } else {
                 //unknownSymbolHandling should be .Remove
                 removeFirst(arr: &arrPlaintext, by: 1)
-                grouping = 2
+                grouping = maxKeyValue
             }
         }
         
@@ -233,18 +234,22 @@ public class Subsitution: Cipher {
             } else if(unknownSymbolHandling == .Ignore && String(arrCiphertext[0]) != seperator) {
                 decryptedMessage += String(arrCiphertext[0])
                 removeFirst(arr: &arrCiphertext, by: 1)
-                grouping = 2
+                grouping = maxKeyValue
             } else if(unknownSymbolHandling == .Replace) {
                 decryptedMessage += replaceUnknownSymbolWith
                 removeFirst(arr: &arrCiphertext, by: 1)
-                grouping = 2
+                grouping = maxKeyValue
             } else {
                 //unknownSymbolHandling should be .Remove
                 removeFirst(arr: &arrCiphertext, by: 1)
-                grouping = 2
+                grouping = maxKeyValue
             }
         }
         
         return reformat(decryptedMessage)
+    }
+    
+    public func randomKey() {
+        
     }
 }

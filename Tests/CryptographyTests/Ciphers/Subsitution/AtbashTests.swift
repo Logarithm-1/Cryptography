@@ -9,13 +9,13 @@ final class AtbashTests: XCTestCase {
     
     func testEncrypt() {
         if let cipher = Atbash() {
-            XCTAssertEqual(cipher.encrypt("Hello World"), "SVOOL DLIOW")
+            XCTAssertEqual(cipher.encrypt("Cryptography Substitution Cipher Atbash"), "Xibkgltizksb Hfyhgrgfgrlm Xrksvi Zgyzhs")
         }
     }
     
     func testDecrypt() {
         if let cipher = Atbash() {
-            XCTAssertEqual(cipher.decrypt("SVOOL DLIOW"), "HELLO WORLD")
+            XCTAssertEqual(cipher.decrypt("Xibkgltizksb Hfyhgrgfgrlm Xrksvi Zgyzhs"), "Cryptography Substitution Cipher Atbash")
         }
     }
 }

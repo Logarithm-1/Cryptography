@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// The simplest kind of **substitution** ciphers known in cryptologic literature. It was long used before Julius Ceasar. In the cipher, each letter of the plaintext is replaced by the letter standing the third to the right of it in the ordinary alphabet. `A` to `D`, `B` to `E`,.... The word `cab` becomes converted into `FDE`, which is cipher. 
 public class CaesarShift : MonoAlphabetic {
     private var shift: Int = 0
     

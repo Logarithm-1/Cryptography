@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A Substitution cipher in which for a given `key`, the chipher alphabet for each plain alphabet is fixed throughout the encryption process.  *Example:* if `A` in encrypted as `D`, for any occurance in that plaintext, `A` will always get encrypted to `D`.
 public class MonoAlphabetic : Subsitution {
     public let alphabet: [String]
     

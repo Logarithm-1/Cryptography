@@ -51,6 +51,8 @@ public protocol Cipher {
     /// - Throws: ``CipherError``
     func decrypt(_ ciphertext: String) -> String
     
+    func randomKey()
+    
     func reformat(_ message: String) -> String
 }
 
