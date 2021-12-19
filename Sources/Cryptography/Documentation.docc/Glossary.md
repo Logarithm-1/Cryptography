@@ -1,7 +1,6 @@
 # Glossary
 Glassary of Cryptographic words
 
-
 **Alphabet:** A witten **polysyllabic** language that has establish and maintained by agreement or convention, that between two sets of elements to represent the sounds.
 
 **Cipher:** A cryptogramproduced by means of a cipher system is said to be **in cipher** and is called a **cipher message** (also cipher).
