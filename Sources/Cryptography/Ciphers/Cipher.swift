@@ -7,6 +7,17 @@
 
 import Foundation
 
+/*
+1) Transposition
+2) Substitution
+ 
+ Textual Elements:
+    1) Monogrpahic: Individual
+    2) Polygraphic: Combinations of letters in regular groupings
+    3) Syllabic: Combinations of letters in irregular, more or less, euphonious groupings called syllables
+    4) Lexical: Combinations of words, phrases, and sentences
+*/
+
 public enum UnknownSymbolHandlingMode {
     case Ignore
     case Replace
@@ -42,13 +53,11 @@ public protocol Cipher {
     /// Encrypts `plaintext`
     /// - Parameter plaintext: The message to be encryted
     /// - Returns `ciphertext`
-    /// - Throws: ``CipherError``
     func encrypt(_ plaintext: String) -> String
     
     /// Decrypts `ciphertext`
     /// - Parameter ciphertext: The message to be encryted
     /// - Returns `plaintext`
-    /// - Throws: ``CipherError``
     func decrypt(_ ciphertext: String) -> String
     
     func randomKey()

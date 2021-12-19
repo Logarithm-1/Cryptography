@@ -68,6 +68,8 @@ public class Subsitution: Cipher {
     private var key: [String : String]
     private var inverseKey: [String : String]
     
+    private var homophonic: Bool
+    
     private var maxKeyValue: Int {
         get {
             var max = 0
@@ -96,9 +98,10 @@ public class Subsitution: Cipher {
         }
     }
     
-    public init?(key: [String : String], caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil, seperator: String = "") {
+    public init?(key: [String : String], caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil, seperator: String = "", homophonic: Bool = false) {
         self.key = key
         self.inverseKey = [:]
+        self.homophonic = homophonic
         self.createInverseKey()
         
         self.caseSensitive = caseSensitive
@@ -127,7 +130,7 @@ public class Subsitution: Cipher {
     
     private func isValidKey() -> Bool {
         //This means that the inverseKey had multiple values set to the same thing.
-        if(key.count != inverseKey.count) {
+        if(!homophonic && key.count != inverseKey.count) {
             return false
         }
         return true

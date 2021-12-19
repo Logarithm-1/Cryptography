@@ -9,4 +9,6 @@ import Foundation
 
 public class Vigenere : PolyAlphabetic {
     
+    //Ceaser Cipher, with different shift (1-26)
+    //
 }

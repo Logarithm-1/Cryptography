@@ -9,7 +9,7 @@ import Foundation
 ///ASCII (American Standard Code for Information Interchange) is a 7-bit character code where every single bit represents a unique character mainly used by computers to translate bits into readalb
 public final class ASCII : Subsitution {
     public init?(unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, seperator: String = " ") {
-        super.init(key: [:], caseSensitive: true, memorizeCase: false, unknownSymbolHandling: unknownSymbolHandling, createNGroups: nil, seperator: seperator)
+        super.init(key: [:], caseSensitive: true, memorizeCase: false, unknownSymbolHandling: unknownSymbolHandling, createNGroups: nil, seperator: seperator, homophonic: false)
     }
     
     public override func encrypt(_ plaintext: String) -> String {

@@ -13,7 +13,7 @@ public final class ASCIIShift : Subsitution {
     
     public init?(shift: Int, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, seperator: String = "") {
         self.shift = shift
-        super.init(key: [:], caseSensitive: true, memorizeCase: false, unknownSymbolHandling: unknownSymbolHandling, createNGroups: nil, seperator: seperator)
+        super.init(key: [:], caseSensitive: true, memorizeCase: false, unknownSymbolHandling: unknownSymbolHandling, createNGroups: nil, seperator: seperator, homophonic: false)
     }
     
     public override func encrypt(_ plaintext: String) -> String {
