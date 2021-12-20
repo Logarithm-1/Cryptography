@@ -22,3 +22,6 @@ public class Enigma : PolyAlphabetic {
     //let rotors: [Rotor]
     
 }
+
+
+///CS
