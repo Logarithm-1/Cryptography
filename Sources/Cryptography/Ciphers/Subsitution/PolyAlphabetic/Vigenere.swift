@@ -52,7 +52,4 @@ public class Vigenere : PolyAlphabetic {
     public override func decrypt(_ ciphertext: String) -> String {
         return super.decrypt(textWithKey(ciphertext))
     }
-    
-    
-    
 }
