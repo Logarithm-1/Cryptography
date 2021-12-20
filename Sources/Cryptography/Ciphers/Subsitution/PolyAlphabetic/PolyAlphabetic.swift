@@ -67,7 +67,7 @@ public class PolyAlphabetic : Cipher {
     public init?(key: [String : Subsitution], caseSensitive: Bool = false, memorizeCase: Bool = false, unknownSymbolHandling: UnknownSymbolHandlingMode = .Ignore, createNGroups: Int? = nil, seperator: String = "") {
         self.key = key
         
-        for value in key {
+        for value in key {            
             value.value.caseSensitive = caseSensitive
             value.value.memorizeCase = memorizeCase
             value.value.unknownSymbolHandling = .Remove

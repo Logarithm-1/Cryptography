@@ -39,7 +39,13 @@ public class MonoAlphabetic : Subsitution {
     
     //TODO: Get / Set Key
     public func getKey() -> [String] {
-        return [String]()
+        var basicKey: [String] = [String]()
+        
+        for value in self.key {
+            basicKey.append(value.key)
+        }
+        
+        return basicKey
     }
     
     public func set(key: [String]) throws {

@@ -65,7 +65,7 @@ public class Subsitution: Cipher {
     
     public let replaceUnknownSymbolWith: String = "⍰"
     
-    private var key: [String : String]
+    internal var key: [String : String]
     private var inverseKey: [String : String]
     
     private var homophonic: Bool
