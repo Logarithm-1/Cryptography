@@ -1,12 +1,13 @@
+// Cryptanalysis.swift
 //
-//  File.swift
-//  
+// This source file is part of the Swift Math open source project.
 //
-//  Created by Logan Richards on 12/18/21.
+// Copyright (c) 2022 Logan Richards and the Swift Math project authors.
+// Licensed under MIT
 //
+// See https://github.com/Logarithm-1/Cryptography/blob/main/LICENSE for license information
 
 import Foundation
-
 
 public protocol Cryptanalysis {
     /// Analyze the `cipherText`
